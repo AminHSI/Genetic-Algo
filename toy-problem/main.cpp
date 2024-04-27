@@ -4,6 +4,8 @@
 #include <array>
 using namespace std;
 
+const int init_population = 500;
+
 
 int randomnum () {
 
@@ -15,9 +17,11 @@ int randomnum () {
 }
 
 
-void evaluate (int(&numbers)[40][5], int target[4]) {
+
+
+void evaluate (int(&numbers)[init_population][5], int target[4]) {
     
-    for (int i=0 ; i<40 ; i++) {
+    for (int i=0 ; i<init_population ; i++) {
         
         int counter = 0;
  
@@ -32,14 +36,14 @@ void evaluate (int(&numbers)[40][5], int target[4]) {
 }
 
 
-void sort(int(&numbers)[40][5]) {
+void sort(int(&numbers)[init_population][5]) {
 
-    for(int i=0 ; i<40 ; i++) {
+    for(int i=0 ; i<init_population ; i++) {
 
         int maxvalue[2] = {i, numbers[i][4]};
         
 
-        for(int j=i ; j<40 ; j++) {
+        for(int j=i ; j<init_population ; j++) {
 
             if(numbers[j][4] > maxvalue[1]) {
 
@@ -62,6 +66,10 @@ void sort(int(&numbers)[40][5]) {
     }
 }
 
+void cross_over(){
+
+}
+
 
 int main() {
 
@@ -73,9 +81,9 @@ int main() {
         cin >> target[i];
     }
 
-    int numbers[40][5];
+    int numbers[init_population][5];
 
-    for(int i=0;i<40;i++) {
+    for(int i=0;i<init_population;i++) {
 
         for(int j=0;j<4;j++) {
 
@@ -90,10 +98,18 @@ int main() {
 
     sort(numbers);
 
-
     if(numbers[0][4] == 4) {
         cout << "best case was found in generation " << generation;
     }
+    else{
+        cout << "best case found so far: ";
+
+        for (int h = 0 ;h<4;h++){
+            cout << numbers[0][h];
+        }
+    }
+
+    cross_over();
     
 
 
