@@ -73,6 +73,7 @@ void sort(int(&numbers)[init_population][5]) {
 void mutation(int(&numbers)[init_population][5]){
     
     for(int i=0 ; i< int(init_population * population_rate) ; i++) {
+
         numbers[randomnum()][randomnum()] = randomnum();
     }
 }
@@ -100,30 +101,34 @@ int main() {
 
     int generation = 0;
     
+    while(1) {
 
-    evaluate(numbers, target);
-
-
-    sort(numbers);
+        evaluate(numbers, target);
 
 
-    if(numbers[0][4] == 4) {
-        cout << "target was found in generation " << generation;
-    }
-    else{
-        cout << "best case found so far: ";
+        sort(numbers);
 
-        for (int h = 0 ;h<4;h++){
-            cout << numbers[0][h];
-        }
 
-        //call crossover
+        if(numbers[0][4] == 4) {
+
+            cout << "target was found in generation " << generation;
+            break;
+
+        } else {
+
+            cout << "best case found so far: ";
+
+            for (int h = 0 ; h<4 ; h++){
+
+                cout << numbers[0][h];
+            }
+
+            //call crossover
 
         
-        mutation(numbers);
+            mutation(numbers);
+        }
     }
-
-
     
     
     return 0;
