@@ -4,11 +4,11 @@
 #include <array>
 using namespace std;
 
-const int init_population = 600;
+const int init_population = 100;
 
 const int repeat = 10;
 
-const float population_rate = 0.2;
+const float population_rate = 0.5;
 
 int randomnum () {
 
@@ -74,15 +74,16 @@ void sort(int(&numbers)[init_population][5]) {
 void cross_over(int(&numbers)[init_population][5]){
 
     for (int i=0 ; i<init_population/2 ; i+=2){
-        for (int j= init_population/2 ; j < init_population ; j+=2)
-        {
-            numbers[j][0] = numbers[i][0]; numbers[j][1] = numbers[i][1];
-            numbers[j][2] = numbers[i+1][2]; numbers[j][3] = numbers[i+1][3];
 
-            numbers[j+1][2] = numbers[i][2]; numbers[j+1][3] = numbers[i][3];
-            numbers[j+1][0] = numbers[i+1][0]; numbers[j+1][1] = numbers[i+1][1]; 
-        }
+        numbers[i + (init_population/2)][0] = numbers[i][0];
+        numbers[i + (init_population/2)][1] = numbers[i][1];
+        numbers[i + (init_population/2)][2] = numbers[i+1][2];
+        numbers[i + (init_population/2)][3] = numbers[i+1][3];
         
+        numbers[i + (init_population/2) +1][0] = numbers[i+1][0];
+        numbers[i + (init_population/2) + 1][1] = numbers[i+1][1];
+        numbers[i + (init_population/2) + 1][2] = numbers[i][2];
+        numbers[i + (init_population/2) + 1][3] = numbers[i][3];      
     }
 }
 
@@ -136,9 +137,7 @@ int main() {
         evaluate(numbers, target);
 
         sort(numbers);
-
-        print(numbers);
-
+        
         if(numbers[0][4] == 4) {
 
             cout << "target was found in generation " << generation;
