@@ -4,11 +4,11 @@
 #include <array>
 using namespace std;
 
-const int init_population = 10;
+const int init_population = 600;
 
-const int repeat = 7;
+const int repeat = 10;
 
-const float population_rate = 0.6;
+const float population_rate = 0.2;
 
 int randomnum () {
 
@@ -72,24 +72,28 @@ void sort(int(&numbers)[init_population][5]) {
 
 
 void cross_over(int(&numbers)[init_population][5]){
-    for (int i = 0;i<init_population/2;i+=2){
-        for (int j = init_population/2; j < init_population; j+=2)
+
+    for (int i=0 ; i<init_population/2 ; i+=2){
+        for (int j= init_population/2 ; j < init_population ; j+=2)
         {
             numbers[j][0] = numbers[i][0]; numbers[j][1] = numbers[i][1];
             numbers[j][2] = numbers[i+1][2]; numbers[j][3] = numbers[i+1][3];
 
-            numbers[j+1][0] = numbers[i+1][0]; numbers[j+1][1] = numbers[i+1][1];
-            numbers[j+1][2] = numbers[i][2]; numbers[j+1][3] = numbers[i][3]; 
+            numbers[j+1][2] = numbers[i][2]; numbers[j+1][3] = numbers[i][3];
+            numbers[j+1][0] = numbers[i+1][0]; numbers[j+1][1] = numbers[i+1][1]; 
         }
         
     }
 }
 
 
-void print(int(&numbers)[init_population][5]){
-    for (int k =0;k<init_population;k++){
-        for (int w =0;w<5;w++){
-            cout << numbers[k][w];
+void print(int(&numbers)[init_population][5]) {
+
+    for (int i =0 ; i<init_population ; i++) {
+
+        for (int j =0 ; j<5 ; j++){
+
+            cout << numbers[i][j];
         }   
         cout << endl;
     } 
@@ -127,10 +131,9 @@ int main() {
 
     int generation = 0;
     
-    while(1) {
+    for(int rpt=0 ; rpt < repeat ; rpt++) {
 
         evaluate(numbers, target);
-
 
         sort(numbers);
 
@@ -144,12 +147,16 @@ int main() {
         } else {
 
             cout << "best case found so far: ";
-            for (int h = 0 ; h<4 ; h++) {
-                cout << numbers[0][h];
+
+            for (int i=0 ; i<4 ; i++) {
+                cout << numbers[0][i];
             }
             cout << endl;
+
             cross_over(numbers);
+
             mutation(numbers);
+
             generation++;
         }
         
