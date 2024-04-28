@@ -7,6 +7,7 @@ using namespace std;
 const int init_population = 10;
 const int repeat = 7;
 
+const float population_rate = 0.6;
 
 int randomnum () {
 
@@ -92,6 +93,14 @@ void print(int(&numbers)[init_population][5]){
 }
 
 
+void mutation(int(&numbers)[init_population][5]){
+    
+    for(int i=0 ; i< int(init_population * population_rate) ; i++) {
+        numbers[randomnum()][randomnum()] = randomnum();
+    }
+}
+
+
 int main() {
 
     cout << "enter a 4-digit number: ";
@@ -133,8 +142,11 @@ int main() {
             }
             cout << endl;
             cross_over(numbers);
+            mutation(numbers);
             generation++;
         }
+        
+        
     }
     
 
