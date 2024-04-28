@@ -64,7 +64,7 @@ int main(){
     int letter_num_f = 5;
     int letter_num_s = 5;
 
-    string population[init_population];
+    string population[init_population][11];
     string target_word = "hello world";
     srand(time(NULL));
 
