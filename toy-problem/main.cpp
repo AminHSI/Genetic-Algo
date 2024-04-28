@@ -4,8 +4,8 @@
 #include <array>
 using namespace std;
 
-const int init_population = 500;
-
+const int init_population = 60;
+const float population_rate = 0.6;
 
 int randomnum () {
 
@@ -66,8 +66,15 @@ void sort(int(&numbers)[init_population][5]) {
     }
 }
 
-void cross_over(){
 
+//cross_over();
+
+
+void mutation(int(&numbers)[init_population][5]){
+    
+    for(int i=0 ; i< int(init_population * population_rate) ; i++) {
+        numbers[randomnum()][randomnum()] = randomnum();
+    }
 }
 
 
@@ -93,13 +100,15 @@ int main() {
 
     int generation = 0;
     
+
     evaluate(numbers, target);
 
 
     sort(numbers);
 
+
     if(numbers[0][4] == 4) {
-        cout << "best case was found in generation " << generation;
+        cout << "target was found in generation " << generation;
     }
     else{
         cout << "best case found so far: ";
@@ -107,13 +116,15 @@ int main() {
         for (int h = 0 ;h<4;h++){
             cout << numbers[0][h];
         }
+
+        //call crossover
+
+        
+        mutation(numbers);
     }
 
-    cross_over();
+
     
-
-
-
     
     return 0;
 }
