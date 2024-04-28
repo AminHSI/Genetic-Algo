@@ -4,7 +4,10 @@
 #include <array>
 using namespace std;
 
-const int init_population = 60;
+const int init_population = 10;
+
+const int repeat = 7;
+
 const float population_rate = 0.6;
 
 int randomnum () {
@@ -32,6 +35,7 @@ void evaluate (int(&numbers)[init_population][5], int target[4]) {
             }
             numbers[i][4] = counter;
         }
+
     }
 }
 
@@ -67,7 +71,29 @@ void sort(int(&numbers)[init_population][5]) {
 }
 
 
-//cross_over();
+void cross_over(int(&numbers)[init_population][5]){
+    for (int i = 0;i<init_population/2;i+=2){
+        for (int j = init_population/2; j < init_population; j+=2)
+        {
+            numbers[j][0] = numbers[i][0]; numbers[j][1] = numbers[i][1];
+            numbers[j][2] = numbers[i+1][2]; numbers[j][3] = numbers[i+1][3];
+
+            numbers[j+1][0] = numbers[i+1][0]; numbers[j+1][1] = numbers[i+1][1];
+            numbers[j+1][2] = numbers[i][2]; numbers[j+1][3] = numbers[i][3]; 
+        }
+        
+    }
+}
+
+
+void print(int(&numbers)[init_population][5]){
+    for (int k =0;k<init_population;k++){
+        for (int w =0;w<5;w++){
+            cout << numbers[k][w];
+        }   
+        cout << endl;
+    } 
+}
 
 
 void mutation(int(&numbers)[init_population][5]){
@@ -108,6 +134,7 @@ int main() {
 
         sort(numbers);
 
+        print(numbers);
 
         if(numbers[0][4] == 4) {
 
@@ -117,19 +144,23 @@ int main() {
         } else {
 
             cout << "best case found so far: ";
-
-            for (int h = 0 ; h<4 ; h++){
-
+            for (int h = 0 ; h<4 ; h++) {
                 cout << numbers[0][h];
             }
-
-            //call crossover
-
-        
+            cout << endl;
+            cross_over(numbers);
             mutation(numbers);
+            generation++;
         }
+        
+        
     }
     
+
+
+    
+
+
     
     return 0;
 }
